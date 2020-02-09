@@ -29,62 +29,62 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import List_item from './List_item.vue';
-export default {
-  name: 'List',
-  props: {
-    elements:{
-      type:Array
-    }
-  }, 
-  components: { List_item },
-  methods:{
+import { Vue, Component, Prop, Method } from 'vue-property-decorator'
+
+@Component({
+  components: {
+    List_item
+  }
+})
+
+export default class List extends Vue {
+  @Prop(Array) readonly elements: array | undefined
+
   /*клик на родителя*/
-    parent_check(elem){
-      elem.isfull = false;
-      if(elem.checked == true){
-      elem.checked = false;
-        elem.checked_child = 0;
-        for(let i=0; i<elem.childes.length; i++){
-          elem.childes[i].checked = false;
-        }
+  parent_check(elem){
+    elem.isfull = false;
+    if(elem.checked == true){
+    elem.checked = false;
+      elem.checked_child = 0;
+      for(let i=0; i<elem.childes.length; i++){
+        elem.childes[i].checked = false;
       }
-      else{
-        elem.checked = true;
-        elem.checked_child = elem.childes.length;
-        for(let i=0; i<elem.childes.length; i++){
-          elem.childes[i].checked = true;
-        }
-      }
-    },
-
-    /*клик на потомка*/
-    check_child(elem){
-
-    /*определяем родителя потомка*/
-      let my_parent = this.elements.find(item => item.id === elem.parent_id); 
-      if(elem.checked == true){
-        elem.checked = false;
-        my_parent.checked_child--;
-        if(my_parent.checked_child==0){
-          my_parent.checked = false;
-        }
-      }
-      else{
-        elem.checked = true;
-        my_parent.checked_child++;
-        my_parent.checked = true;
-      }
-
-      /*если у родителя есть отмеченные потомки, но не все - родитель получает класс notfull - квадратик в чекбоксе*/
-      my_parent.checked_child !=0 && my_parent.checked_child < my_parent.childes.length ? my_parent.isfull = true : my_parent.isfull = false;
     }
-  },
+    else{
+      elem.checked = true;
+      elem.checked_child = elem.childes.length;
+      for(let i=0; i<elem.childes.length; i++){
+        elem.childes[i].checked = true;
+      }
+    }
+  }
+
+  /*клик на потомка*/
+  check_child(elem){
+
+  /*определяем родителя потомка*/
+    let my_parent = this.elements.find(item => item.id === elem.parent_id); 
+    if(elem.checked == true){
+      elem.checked = false;
+      my_parent.checked_child--;
+      if(my_parent.checked_child==0){
+        my_parent.checked = false;
+      }
+    }
+    else{
+      elem.checked = true;
+      my_parent.checked_child++;
+      my_parent.checked = true;
+    }
+
+    /*если у родителя есть отмеченные потомки, но не все - родитель получает класс notfull - квадратик в чекбоксе*/
+    my_parent.checked_child !=0 && my_parent.checked_child < my_parent.childes.length ? my_parent.isfull = true : my_parent.isfull = false;
+  }
 
   created(){
-
-  /*фейковые данные с ресурса https://app.fakejson.com*/
+    /*фейковые данные с ресурса https://app.fakejson.com*/
     let data = JSON.stringify({ 
       "token": "4yN5zerNisvFGRvHaAy40g",      
       /*при многократном использовании (за день) токен перестает работать.. попробуйте IhbAeCuG4R0pzfs6ChBc1g или gXwndHrnCkDiGuYa_zqFLA
