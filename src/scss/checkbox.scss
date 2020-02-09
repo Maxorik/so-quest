@@ -1,0 +1,97 @@
+$background: #273339;
+$checkbox-color: #5f82d7;
+$checkbox-hover: #fff;
+$hr-color: #33434a;
+
+.checkbox-square {
+    position: absolute;
+    display: none;
+}
+
+.checkbox-square + label{
+    display: inline-block;
+    position: relative;
+    padding-left: 28px;
+    line-height: 20px;
+    cursor: pointer;
+    font-family: Montserrat;
+}
+.checkbox-square + label:before{
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid $checkbox-color;
+    background-color: transparent;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-square:checked + label:before{
+    background-color: $checkbox-color;
+}
+
+.checkbox-square + label:after{
+    content: "";
+    position: absolute;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    left: 4px;
+    top: 4px;
+    width: 9px;
+    height: 6px;
+    border-radius: 1px;
+    border-left: 3px solid $background;
+    border-bottom: 3px solid $background;
+    -webkit-transform: rotate(-50deg);
+    -moz-transform: rotate(-50deg);
+    -o-transform: rotate(-50deg);
+    -ms-transform: rotate(-50deg);
+    transform: rotate(-50deg);
+}
+        
+.checkbox-square:not(:checked) + label:after{
+    opacity: 0;
+}
+
+.checkbox-square:checked + label:after{
+    opacity: 1;
+}
+
+.checkbox-square + label{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    color:#fff;
+}
+
+.checkbox-square:hover + label:before{
+    border: 2px solid $checkbox-hover;
+    transition: all 0.3s ease;
+} 
+
+.checkbox-square:hover:checked + label:before{
+    background-color: $checkbox-hover;
+    transition: all 0.3s ease;
+} 
+
+.notfull + label:after{
+    content: "";
+    position: absolute;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    left: 2px;
+    top: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 1px;
+    border: 2px solid $background;
+    transform: rotate(0deg);
+}
