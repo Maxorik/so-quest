@@ -1,44 +1,85 @@
 <template>
-  <div>
-    <div v-for='parent in elements' :key='parent.id'>
+  <div id="app">
+      <div v-for='parent in elements' :key='parent.id'>
 
-      <div class='checkbox-block'>
-        <input class="checkbox-square" 
-              :id='parent.label_id' 
+        <div class='checkbox-block'>
+          <input class="checkbox-square" 
+                :id='parent.label_id' 
+                type="checkbox" 
+                :checked='parent.checked' 
+                @click='parent_check(parent)' 
+                :class="{ notfull: parent.isfull }" 
+          >
+          <label :for='parent.label_id'>{{parent.name}}</label>
+        </div>
+
+        <hr class='app_hr' />
+
+        <div v-for='child in parent.childes' :key='child.id'>
+          <div class='checkbox-block checkbox-child'>
+            <input class="checkbox-square" 
+              :id='child.label_id' 
               type="checkbox" 
-              :checked='parent.checked' 
-              @click='parent_check(parent)' 
-              :class="{ notfull: parent.isfull }" 
-        >
-        <label :for='parent.label_id'>{{parent.name}}</label>
-      </div>
+              :checked='child.checked' 
+              @click='child_check(child)'
+            >
+            <label :for='child.label_id'>{{child.name}}</label>
+          </div>
 
-      <hr class='app_hr' />
+          <hr class='app_hr' />
+
+        </div>
       
-      <List_item
-        v-for='child of parent.childes' :key='child.id'
-        v-bind:data='child'
-        v-on:child_check='check_child'
-      >
-
-        <hr class='app_hr' /> 
-
-      </List_item>
-
     </div>
   </div>
 </template>
 
 <script>
-import List_item from './List_item.vue';
+//import List from './components/List.vue';
 export default {
-  name: 'List',
-  props: {
-    elements:{
-      type:Array
-    }
-  }, 
-  components: { List_item },
+  name: 'App',
+//components: { List },
+
+  data(){
+    elements:[    
+      {
+        id:1,
+        checked_child:0,    
+        name:'Parent 1',
+        label_id: 'parent_1',
+        checked: false,
+        isfull:false,
+        childes: []          
+      },
+      {
+        id:2,
+        checked_child:0,
+        name:'Parent 2',
+        label_id: 'parent_2',
+        checked: false,
+        isfull:false,
+        childes: []
+      },
+      {
+        id:3,
+        checked_child:0,
+        name:'Parent 3',
+        label_id: 'parent_3',
+        checked: false,
+        isfull:false,
+        childes: []
+      },
+      {
+        id:4,
+        checked_child:0,
+        name:'Parent 4',
+        label_id: 'parent_4',
+        checked: false,
+        isfull:false,
+        childes: []
+      }
+    ]
+  },
   methods:{
   /*клик на родителя*/
     parent_check(elem){
@@ -60,7 +101,7 @@ export default {
     },
 
     /*клик на потомка*/
-    check_child(elem){
+    child_check(elem){
 
     /*определяем родителя потомка*/
       let my_parent = this.elements.find(item => item.id === elem.parent_id); 
@@ -86,10 +127,8 @@ export default {
 
   /*фейковые данные с ресурса https://app.fakejson.com*/
     let data = JSON.stringify({ 
-      "token": "igo5MeOGjUBNaXS3osUemQ",      
-      /*при многократном использовании (за день) токен перестает работать.. попробуйте IhbAeCuG4R0pzfs6ChBc1g или gXwndHrnCkDiGuYa_zqFLA
-        Либо, как очень крайний вариант - необходимо будет зарегистрироваться на https://app.fakejson.com и получить новый токен, затем вставить его сюда
-      */
+      "token": "6KXHC8cCVG0GA3KwvM3FNg",      
+      /*при многократном использовании (за день) токен перестает работать.. попробуйте IhbAeCuG4R0pzfs6ChBc1g или gXwndHrnCkDiGuYa_zqFLA*/
       "data": {
         "id": "numberInt",
         "parent_id": "numberInt|1,3",  
@@ -129,23 +168,14 @@ export default {
     request.setRequestHeader("content-type", "application/json");
     request.send(data);    
   }
+
 }
 </script>
 
 <style lang="scss">
-  @import '../scss/checkbox.scss'; 
-
-  .checkbox-block{
-    margin: 15px 10px;
+  body{
+    margin:0;
+    padding:0;
+    background-color:#273339;
   }
-
-  .checkbox-child{
-    margin-left:40px;
-  }
-
-  .app_hr{
-    color:$hr-color;
-    margin: 0 10px;
-  }
-
 </style>

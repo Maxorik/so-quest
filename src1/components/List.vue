@@ -14,18 +14,24 @@
       </div>
 
       <hr class='app_hr' />
-      
-      <List_item
-        v-for='child of parent.childes' :key='child.id'
-        v-bind:data='child'
-        v-on:child_check='check_child'
-      >
 
-        <hr class='app_hr' /> 
+      <div v-for='child in parent.childes' :key='child.id'>
+        <div class='checkbox-block checkbox-child'>
+          <input class="checkbox-square" 
+            :id='child.label_id' 
+            type="checkbox" 
+            :checked='child.checked' 
+            @click='child_check(child)'
+          >
+          <label :for='child.label_id'>{{child.name}}</label>
+        </div>
 
-      </List_item>
+        <hr class='app_hr' />
+
+      </div>
 
     </div>
+    
   </div>
 </template>
 
@@ -33,12 +39,16 @@
 import List_item from './List_item.vue';
 export default {
   name: 'List',
-  props: {
-    elements:{
-      type:Array
-    }
-  }, 
+  props: ['elements'],
   components: { List_item },
+
+  data(){
+    return{ 
+    /*массив элементов-родителей*/
+      
+    }
+  },
+
   methods:{
   /*клик на родителя*/
     parent_check(elem){
@@ -60,7 +70,7 @@ export default {
     },
 
     /*клик на потомка*/
-    check_child(elem){
+    child_check(elem){
 
     /*определяем родителя потомка*/
       let my_parent = this.elements.find(item => item.id === elem.parent_id); 
@@ -86,10 +96,8 @@ export default {
 
   /*фейковые данные с ресурса https://app.fakejson.com*/
     let data = JSON.stringify({ 
-      "token": "igo5MeOGjUBNaXS3osUemQ",      
-      /*при многократном использовании (за день) токен перестает работать.. попробуйте IhbAeCuG4R0pzfs6ChBc1g или gXwndHrnCkDiGuYa_zqFLA
-        Либо, как очень крайний вариант - необходимо будет зарегистрироваться на https://app.fakejson.com и получить новый токен, затем вставить его сюда
-      */
+      "token": "6KXHC8cCVG0GA3KwvM3FNg",      
+      /*при многократном использовании (за день) токен перестает работать.. попробуйте IhbAeCuG4R0pzfs6ChBc1g или gXwndHrnCkDiGuYa_zqFLA*/
       "data": {
         "id": "numberInt",
         "parent_id": "numberInt|1,3",  
