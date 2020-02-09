@@ -86,7 +86,7 @@ export default {
 
   /*фейковые данные с ресурса https://app.fakejson.com*/
     let data = JSON.stringify({ 
-      "token": "igo5MeOGjUBNaXS3osUemQ",      
+      "token": "4yN5zerNisvFGRvHaAy40g",      
       /*при многократном использовании (за день) токен перестает работать.. попробуйте IhbAeCuG4R0pzfs6ChBc1g или gXwndHrnCkDiGuYa_zqFLA
         Либо, как очень крайний вариант - необходимо будет зарегистрироваться на https://app.fakejson.com и получить новый токен, затем вставить его сюда
       */
