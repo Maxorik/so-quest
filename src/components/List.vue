@@ -31,7 +31,7 @@
 
 <script lang='ts'>
 import List_item from './List_item.vue';
-import { Vue, Component, Prop, Method } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component({
   components: {
